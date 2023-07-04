@@ -53,9 +53,7 @@ export default defineComponent({
             let type = ''
             try {
                 if (isUpdate.value) {
-                    await update('category', {
-                        ...form.value
-                    })
+                    await update('category', form.value)
                     type = 'Editada'
                 } else {
                     await post('category', form.value)

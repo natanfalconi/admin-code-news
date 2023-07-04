@@ -13,6 +13,19 @@ export default function useApi() {
         return data
     }
 
+    const listJoin = async (table, joinTable) => {
+        const { data, error } = await supabase
+            .from(table)
+            .select(`
+            *, 
+            ${joinTable}(
+                id, name
+            )`)
+
+        if (error) throw error
+        return data
+    }
+
     const getById = async (table, id) => {
         const { data, error } = await supabase
             .from(table)
@@ -60,6 +73,7 @@ export default function useApi() {
     return {
         list,
         getById,
+        listJoin,
         post,
         update,
         remove

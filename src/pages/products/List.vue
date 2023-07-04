@@ -1,13 +1,14 @@
 <template>
     <q-page padding>
         <div class="row">
-            <q-table :rows="categories" :columns="columnsCategory" row-key="id" class="col-12" :loading="loading">
+            <q-table :rows="products" :columns="columnsProducts" row-key="id" class="col-12" :loading="loading">
                 <template v-slot:top>
-                    <span class="text-h6">Categorias</span>
+                    <span class="text-h6">Produtos</span>
 
                     <q-space></q-space>
+
                     <q-btn v-if="$q.platform.is.desktop" label="Adiconar" color='primary' icon="mdi-plus"
-                        :to="{ name: 'form-category' }">
+                        :to="{ name: 'form-products' }">
                         <q-tooltip>Adicionar</q-tooltip>
                     </q-btn>
 
@@ -15,10 +16,10 @@
                 <template v-slot:body-cell-actions="props">
                     <q-td :props="props" class="q-gutter-x-sm">
                         <q-btn icon='mdi-pencil' color='info' dense flat
-                            :to="{ name: 'form-category', params: { id: `${props.row.id}` } }">
+                            :to="{ name: 'form-products', params: { id: `${props.row.id}` } }">
                             <q-tooltip>Editar</q-tooltip>
                         </q-btn>
-                        <q-btn icon='mdi-delete' color='negative' dense flat @click="handleDeleteCategory(props.row.id)">
+                        <q-btn icon='mdi-delete' color='negative' dense flat @click="handleDeleteProducts(props.row.id)">
                             <q-tooltip>Deletar</q-tooltip>
                         </q-btn>
                     </q-td>
@@ -27,7 +28,7 @@
         </div>
 
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
-            <q-btn v-if="$q.platform.is.mobile" color='primary' icon="mdi-plus" fab :to="{ name: 'form-category' }" />
+            <q-btn v-if="$q.platform.is.mobile" color='primary' icon="mdi-plus" fab :to="{ name: 'form-products' }" />
         </q-page-sticky>
     </q-page>
 </template>
@@ -38,29 +39,29 @@ import { defineComponent, ref, onMounted } from 'vue';
 import useApi from 'src/composables/UseApi.js'
 import useNotify from 'src/composables/useNotify';
 import { useQuasar } from 'quasar'
-import { columnsCategory } from './table'
+import { columnsProducts } from './table'
 
 export default defineComponent({
-    name: 'PageCategoryList',
+    name: 'PageProductsList',
 
     setup() {
-        const categories = ref([])
+        const products = ref([])
         const loading = ref(true)
         const { list, remove } = useApi()
         const { notifyError, notifySuccess } = useNotify()
         const $q = useQuasar()
 
-        const handleListCategories = async () => {
+        const handleListProducts = async () => {
             try {
                 loading.value = true
-                categories.value = await list('category')
+                products.value = await list('products')
                 loading.value = false
             } catch (error) {
                 notifyError(error.message)
             }
         }
 
-        const handleDeleteCategory = async (id) => {
+        const handleDeleteProducts = async (id) => {
             try {
                 $q.dialog({
                     title: 'Excluir',
@@ -68,9 +69,9 @@ export default defineComponent({
                     cancel: true,
                     persistent: true,
                 }).onOk(async () => {
-                    await remove('category', id)
+                    await remove('products', id)
                     notifySuccess('Exclusão realizada com sucesso !')
-                    handleListCategories()
+                    handleListProducts()
                 })
             } catch (error) {
                 notifyError(error.message)
@@ -78,14 +79,14 @@ export default defineComponent({
         }
 
         onMounted(() => {
-            handleListCategories()
+            handleListProducts()
         })
 
         return {
-            columnsCategory,
-            categories,
+            columnsProducts,
+            products,
             loading,
-            handleDeleteCategory,
+            handleDeleteProducts,
         }
     }
 })
