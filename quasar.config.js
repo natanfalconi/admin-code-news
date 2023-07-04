@@ -52,6 +52,10 @@ module.exports = configure(function (/* ctx */) {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16",
       },
+      env: {
+        SUPABASE_URL: 'https://hnagncamzhjfqebflwfn.supabase.co',
+        SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhuYWduY2FtemhqZnFlYmZsd2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgzODQ2NzcsImV4cCI6MjAwMzk2MDY3N30.CXMbfDDk20_YSTeOITeNnrIT7w6U8gdxm314megKww8'
+      },
 
       vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
