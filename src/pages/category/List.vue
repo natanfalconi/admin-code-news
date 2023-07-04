@@ -6,14 +6,14 @@
                     <span class="text-h6">Categorias</span>
 
                     <q-space></q-space>
-                    <q-btn label="Adiconar" color='primary' :to="{ name: 'create-category' }">
+                    <q-btn label="Adiconar" color='primary' icon="mdi-plus" :to="{ name: 'form-category' }">
                         <q-tooltip>Adicionar</q-tooltip>
                     </q-btn>
                 </template>
                 <template v-slot:body-cell-actions="props">
                     <q-td :props="props" class="q-gutter-x-sm">
                         <q-btn icon='mdi-pencil' color='info' dense flat
-                            :to="{ name: 'edit-category', params: { id: `${props.row.id}` } }">
+                            :to="{ name: 'form-category', params: { id: `${props.row.id}` } }">
                             <q-tooltip>Editar</q-tooltip>
                         </q-btn>
                         <q-btn icon='mdi-delete' color='negative' dense flat @click="handleDeleteCategory(props.row.id)">

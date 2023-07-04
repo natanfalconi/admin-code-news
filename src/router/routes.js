@@ -18,8 +18,7 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'me', name: 'me', component: () => import('pages/Me.vue') },
       { path: 'category', name: 'category', component: () => import('pages/category/List.vue') },
-      { path: 'create-category', name: 'create-category', component: () => import('pages/category/Create.vue') },
-      { path: 'edit-category/:id', name: 'edit-category', component: () => import('pages/category/Edit.vue') }
+      { path: 'form-category/:id?', name: 'form-category', component: () => import('pages/category/Form.vue') },
     ],
     meta: {
       requiresAuth: true
