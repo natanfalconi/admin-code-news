@@ -28,7 +28,8 @@ export default function useApi() {
             .insert([
                 {
                     ...form,
-                    user_id: user.value.id
+                    user_id: user.value.id,
+                    created_at: new Date()
                 }
             ])
         if (error) throw error

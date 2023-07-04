@@ -29,7 +29,6 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to) => {
     const { isLoggedIn } = useAuthUser()
-    console.log('to.hash.includes', to.hash.includes('type=recovery'))
 
     if (to.hash.includes('type=recovery') && to.name !== 'reset-password') {
       const acessToken = to.hash.split('&')[0]
