@@ -9,6 +9,7 @@ const routes = [
       { path: 'email-confirmation', name: 'email-confirmation', component: () => import('pages/EmailConfirmation.vue') },
       { path: 'forgot-password', name: 'forgot-password', component: () => import('pages/ForgotPassword.vue') },
       { path: 'reset-password', name: 'reset-password', component: () => import('pages/ResetPassword.vue') },
+      { path: 'list-products/:id', name: 'list-products', component: () => import('pages/products/PublicProducts.vue') },
     ]
   },
   {

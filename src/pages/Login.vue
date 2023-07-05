@@ -14,7 +14,7 @@
 
         <div class="full-width">
           <q-btn label='Registro' color='primary' class="full-width" flat to="/register" />
-          <q-btn label='Reculperar senha' color='primary' class="full-width" flat to="/forgot-password" />
+          <q-btn label='Esqueceu a senha' color='primary' class="full-width" flat to="/forgot-password" />
         </div>
       </div>
     </q-form>

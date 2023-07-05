@@ -5,7 +5,10 @@
                 <template v-slot:top>
                     <span class="text-h6">Produtos</span>
 
-                    <q-space></q-space>
+                    <q-btn label="Minha Loja" color='primary' class="q-ml-sm" outline flat icon="mdi-store"
+                        @click="handleGoToStore" />
+
+                    <q-space />
 
                     <q-btn v-if="$q.platform.is.desktop" label="Adiconar" color='primary' icon="mdi-plus"
                         :to="{ name: 'form-products' }">
@@ -48,9 +51,11 @@
 
 import { defineComponent, ref, onMounted } from 'vue';
 import useApi from 'src/composables/UseApi.js'
+import useAuth from 'src/composables/UseAuthUser.js'
 import useNotify from 'src/composables/useNotify';
 import { useQuasar } from 'quasar'
 import { columnsProducts } from './table'
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
     name: 'PageProductsList',
@@ -58,18 +63,25 @@ export default defineComponent({
     setup() {
         const products = ref([])
         const loading = ref(true)
-        const { list, remove } = useApi()
+        const { remove, listPublic } = useApi()
+        const router = useRouter()
+        const { user } = useAuth()
         const { notifyError, notifySuccess } = useNotify()
         const $q = useQuasar()
 
         const handleListProducts = async () => {
             try {
                 loading.value = true
-                products.value = await list('products')
+                products.value = await listPublic('products', user.value.id)
                 loading.value = false
             } catch (error) {
                 notifyError(error.message)
             }
+        }
+
+        const handleGoToStore = () => {
+            const idUser = user.value.id
+            router.push({ name: 'list-products', params: { id: idUser } })
         }
 
         const handleDeleteProducts = async (id) => {
@@ -98,6 +110,7 @@ export default defineComponent({
             products,
             loading,
             handleDeleteProducts,
+            handleGoToStore
         }
     }
 })

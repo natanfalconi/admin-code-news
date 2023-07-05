@@ -15,6 +15,16 @@ export default function useApi() {
         return data
     }
 
+    const listPublic = async (table, userId) => {
+        const { data, error } = await supabase
+            .from(table)
+            .select('*')
+            .eq('user_id', userId)
+            .order('id')
+        if (error) throw error
+        return data
+    }
+
     const listJoin = async (table, joinTable) => {
         const { data, error } = await supabase
             .from(table)
@@ -99,6 +109,7 @@ export default function useApi() {
         post,
         update,
         remove,
-        uploudImg
+        uploudImg,
+        listPublic
     }
 }

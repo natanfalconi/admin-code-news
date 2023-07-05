@@ -17,7 +17,7 @@
         </div>
 
         <div class="full-width">
-          <q-btn label='Login' color='primary' class="full-width" flat to="/login" />
+          <q-btn label='Voltar' color='primary' class="full-width" flat to="/login" />
         </div>
       </div>
     </q-form>
