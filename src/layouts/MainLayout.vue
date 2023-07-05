@@ -60,6 +60,11 @@ const linksList = [
     icon: 'mdi-format-list-checkbox',
     routeName: 'products'
   },
+  {
+    title: 'Postagens',
+    icon: 'mdi-post-outline',
+    routeName: 'posts'
+  },
 ]
 
 export default defineComponent({

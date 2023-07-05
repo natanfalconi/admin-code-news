@@ -4,7 +4,7 @@
             <div class="col-12">
                 <q-form class="row justify-center" @submit.prevent='handleSubmit'>
                     <p class="col-12 text-h5 text-center">{{ isUpdate ? 'Editar Produto' : "Novo Produto" }}</p>
-                    <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-sm">
+                    <div class="col-md-8 col-sm-6 col-xs-10 q-gutter-y-sm">
                         <q-input label="Nome do produto" type='text' lazy-rules v-model='form.name'
                             :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined />
 
