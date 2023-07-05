@@ -14,8 +14,8 @@
                         <q-editor v-model="form.description" placeholder="Descrição"
                             :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" min-height="5rem" />
 
-                        <q-input label="Imagem Url" type='text' lazy-rules v-model='form.img_url'
-                            :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined />
+                        <q-input filled label="Imagem" stack-label type='file' lazy-rules v-model='img' accept='image/*'
+                            :rules="[val => (val && val[0]) || 'Campo Obrigatório']" outlined />
 
                         <q-input label="Quantidade" type='number' lazy-rules v-model='form.amount'
                             :rules="[val => !!val || 'Campo Obrigatório']" outlined />
@@ -48,7 +48,7 @@ import { useRoute, useRouter } from 'vue-router'
 export default defineComponent({
     name: 'FormProductsPage',
     setup() {
-        const { post, getById, update, list } = useApi()
+        const { post, getById, update, list, uploudImg } = useApi()
         const { notifyError, notifySuccess } = useNotify()
         const route = useRoute()
         const router = useRouter()
@@ -56,7 +56,7 @@ export default defineComponent({
         const nameTable = 'products'
 
         const optionsCategories = ref([])
-
+        const img = ref([])
         const form = ref({
             name: '',
             description: '',
@@ -93,7 +93,9 @@ export default defineComponent({
 
         const getProductsById = async (id) => {
             try {
-                form.value = await getById(nameTable, id)
+                if (isUpdate.value) {
+                    form.value = await getById(nameTable, id)
+                }
             } catch (error) {
                 notifyError(error.message)
             }
@@ -102,6 +104,11 @@ export default defineComponent({
         const handleSubmit = async () => {
             let type = ''
             try {
+                if (img.value.length > 0) {
+                    const imgUrl = await uploudImg(img.value[0], 'products')
+                    form.value.img_url = imgUrl.publicUrl
+                }
+
                 if (isUpdate.value) {
                     await update(nameTable, {
                         ...form.value,
@@ -132,7 +139,8 @@ export default defineComponent({
             form,
             optionsCategories,
             isUpdate,
-            handleSubmit
+            handleSubmit,
+            img,
         }
     }
 })
