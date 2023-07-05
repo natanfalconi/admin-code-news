@@ -8,17 +8,24 @@
                         <q-input label="Nome do produto" type='text' lazy-rules v-model='form.name'
                             :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined />
 
-                        <q-input label="Descrição" type='text' lazy-rules v-model='form.description'
+                        <!-- <q-input label="Descrição" type='text' lazy-rules v-model='form.description'
+                            :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined /> -->
+
+                        <q-editor v-model="form.description" placeholder="Descrição"
+                            :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" min-height="5rem" />
+
+                        <q-input label="Imagem Url" type='text' lazy-rules v-model='form.img_url'
                             :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined />
 
                         <q-input label="Quantidade" type='number' lazy-rules v-model='form.amount'
-                            :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined />
+                            :rules="[val => !!val || 'Campo Obrigatório']" outlined />
 
-                        <q-input label="Valor" type='number' lazy-rules v-model='form.price'
-                            :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined />
+                        <q-input label="Valor" type='number' lazy-rules v-model='form.price' prefix="R$"
+                            :rules="[val => !!val || 'Campo Obrigatório']" outlined />
 
-                        <q-select outlined v-model="form.category_id" :options="options" label="Selecione a categoria" />
-
+                        <q-select outlined v-model="form.category_id" :options="optionsCategories"
+                            :rules="[val => !!val || 'Campo Obrigatório']" label="Selecione a categoria" option-value="id"
+                            option-label="name" map-options emit-value />
 
                         <div class="full-width q-pt-md q-gutter-y-sm">
                             <q-btn :label='isUpdate ? "Editar" : "Salvar"' type="submit" color='primary'
@@ -48,28 +55,37 @@ export default defineComponent({
         const isUpdate = computed(() => route.params.id)
         const nameTable = 'products'
 
-        const options = ref([])
+        const optionsCategories = ref([])
 
         const form = ref({
             name: '',
             description: '',
-            amount: null,
-            price: null,
+            img_url: '',
+            amount: 0,
+            price: 0,
             category_id: null,
         })
 
-        const getCategory = async () => {
+        const getListCategories = async () => {
+            // VERSÃO 1
+            // try {
+            //     const data = await list('category')
+
+            //     const categoryOptions = data.map((item) => {
+            //         return {
+            //             label: item.name,
+            //             value: item.id
+            //         }
+            //     })
+
+            //     options.value = categoryOptions
+            // } catch (error) {
+            //     notifyError(error.message)
+            // }
+
+            // VERSÃO 2 - REFATORAÇÃO // o campo select também mudou
             try {
-                const data = await list('category')
-
-                const categoryOptions = data.map((item) => {
-                    return {
-                        label: item.name,
-                        value: item.id
-                    }
-                })
-
-                options.value = categoryOptions
+                optionsCategories.value = await list('category')
             } catch (error) {
                 notifyError(error.message)
             }
@@ -77,13 +93,7 @@ export default defineComponent({
 
         const getProductsById = async (id) => {
             try {
-                const response = await getById(nameTable, id)
-                const findOptionsLabel = options.value.find((item) => item.value === response.category_id)
-
-                form.value = {
-                    ...response,
-                    category_id: findOptionsLabel
-                }
+                form.value = await getById(nameTable, id)
             } catch (error) {
                 notifyError(error.message)
             }
@@ -114,13 +124,13 @@ export default defineComponent({
         }
 
         onMounted(() => {
-            getCategory()
+            getListCategories()
             getProductsById(isUpdate.value)
         })
 
         return {
             form,
-            options,
+            optionsCategories,
             isUpdate,
             handleSubmit
         }

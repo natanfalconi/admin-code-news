@@ -13,6 +13,17 @@
                     </q-btn>
 
                 </template>
+
+                <template v-slot:body-cell-img_url="props">
+                    <q-td :props="props" class="q-gutter-x-sm">
+                        <q-avatar v-if="props.row.img_url">
+                            <img :src="props.row.img_url" alt="imagem do produto">
+                        </q-avatar>
+
+                        <q-avatar v-else color="grey" text-color="white" icon="mdi-image-off" />
+                    </q-td>
+                </template>
+
                 <template v-slot:body-cell-actions="props">
                     <q-td :props="props" class="q-gutter-x-sm">
                         <q-btn icon='mdi-pencil' color='info' dense flat
