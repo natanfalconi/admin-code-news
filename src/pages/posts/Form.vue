@@ -11,8 +11,24 @@
                         <q-input filled label="Imagem" stack-label type='file' lazy-rules v-model='img' accept='image/*'
                             outlined />
 
-                        <q-editor v-model="form.description" placeholder="Descrição"
-                            :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" min-height="5rem" />
+                        <q-editor v-model="form.description" placeholder="Descrição" :toolbar="[
+                            [
+                                {
+                                    label: $q.lang.editor.align,
+                                    icon: $q.iconSet.editor.align,
+                                    fixedLabel: true,
+                                    list: 'only-icons',
+                                    options: ['left', 'center', 'right', 'justify']
+                                }
+                            ],
+                            ['bold', 'italic', 'underline'],
+                            [{
+                                label: $q.lang.editor.formatting,
+                                icon: $q.iconSet.editor.formatting,
+                                list: 'no-icons',
+                                options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
+                            }]
+                        ]" :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" min-height="5rem" />
 
                         <div class="full-width q-pt-md q-gutter-y-sm">
                             <q-btn :label='isUpdate ? "Editar" : "Salvar"' type="submit" color='primary'
@@ -49,31 +65,6 @@ export default defineComponent({
             description: '',
             imagem_url: '',
         })
-
-        // const getListCategories = async () => {
-        //     // VERSÃO 1
-        //     // try {
-        //     //     const data = await list('category')
-
-        //     //     const categoryOptions = data.map((item) => {
-        //     //         return {
-        //     //             label: item.name,
-        //     //             value: item.id
-        //     //         }
-        //     //     })
-
-        //     //     options.value = categoryOptions
-        //     // } catch (error) {
-        //     //     notifyError(error.message)
-        //     // }
-
-        //     // VERSÃO 2 - REFATORAÇÃO // o campo select também mudou
-        //     try {
-        //         optionsCategories.value = await list('category')
-        //     } catch (error) {
-        //         notifyError(error.message)
-        //     }
-        // }
 
         const getProductsById = async (id) => {
             try {
