@@ -5,11 +5,15 @@
                 <q-form class="row justify-center" @submit.prevent='handleSubmit'>
                     <p class="col-12 text-h5 text-center">{{ isUpdate ? 'Editar Post' : "Novo Post" }}</p>
                     <div class="col-md-8 col-sm-6 col-xs-10 q-gutter-y-sm">
-                        <q-input label="Nome da categoria" type='text' lazy-rules v-model='form.title'
+                        <q-input label="Titulo do artigo" type='text' lazy-rules v-model='form.title'
                             :rules="[val => (val && val.length > 0) || 'Campo Obrigatório']" outlined />
 
                         <q-input filled label="Imagem" stack-label type='file' lazy-rules v-model='img' accept='image/*'
                             outlined />
+
+                        <q-select outlined v-model="form.author_id" :options="optionsAuthor"
+                            :rules="[val => !!val || 'Campo Obrigatório']" label="Selecione o autor" option-value="id"
+                            option-label="name" map-options emit-value />
 
                         <q-editor v-model="form.description" placeholder="Descrição" :toolbar="[
                             [
@@ -58,13 +62,22 @@ export default defineComponent({
         const isUpdate = computed(() => route.params.id)
         const nameTable = 'posts'
 
-        const optionsCategories = ref([])
+        const optionsAuthor = ref([])
         const img = ref([])
         const form = ref({
             title: '',
             description: '',
+            author_id: '',
             imagem_url: '',
         })
+
+        const getListAuthor = async () => {
+            try {
+                optionsAuthor.value = await list('author')
+            } catch (error) {
+                notifyError(error.message)
+            }
+        }
 
         const getProductsById = async (id) => {
             try {
@@ -99,12 +112,13 @@ export default defineComponent({
         }
 
         onMounted(() => {
+            getListAuthor()
             getProductsById(isUpdate.value)
         })
 
         return {
             form,
-            optionsCategories,
+            optionsAuthor: optionsAuthor,
             isUpdate,
             handleSubmit,
             img,
