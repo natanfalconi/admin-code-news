@@ -10,7 +10,7 @@ export default function useApi() {
         const { data, error } = await supabase
             .from(table)
             .select('*')
-            .order('id')
+            .order('id', { ascending: false })
         if (error) throw error
         return data
     }
@@ -20,7 +20,7 @@ export default function useApi() {
             .from(table)
             .select('*')
             .eq('user_id', userId)
-            .order('id')
+            .order('id', { ascending: false })
         if (error) throw error
         return data
     }
