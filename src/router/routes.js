@@ -18,8 +18,8 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'me', name: 'me', component: () => import('pages/Me.vue') },
-      { path: 'category', name: 'category', component: () => import('pages/category/List.vue') },
-      { path: 'form-category/:id?', name: 'form-category', component: () => import('pages/category/Form.vue') },
+      { path: 'author', name: 'author', component: () => import('pages/author/List.vue') },
+      { path: 'form-author/:id?', name: 'form-author', component: () => import('pages/author/Form.vue') },
       { path: 'products', name: 'products', component: () => import('pages/products/List.vue') },
       { path: 'form-products/:id?', name: 'form-products', component: () => import('pages/products/Form.vue') },
       { path: 'posts', name: 'posts', component: () => import('pages/posts/List.vue') },

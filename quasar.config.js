@@ -61,8 +61,8 @@ module.exports = configure(function (/* ctx */) {
         });
       },
       env: {
-        SUPABASE_URL: 'https://hnagncamzhjfqebflwfn.supabase.co',
-        SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhuYWduY2FtemhqZnFlYmZsd2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgzODQ2NzcsImV4cCI6MjAwMzk2MDY3N30.CXMbfDDk20_YSTeOITeNnrIT7w6U8gdxm314megKww8'
+        SUPABASE_URL: 'https://mrxlbblrttjnkdxxsciz.supabase.co',
+        SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeGxiYmxydHRqbmtkeHhzY2l6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg4MzI1OTksImV4cCI6MjAwNDQwODU5OX0.Xu2hqRTSDwUHbdtpr5CV7_81HUT4XRTQ0WDrJkldVwo'
       },
 
       vueRouterMode: "history", // available values: 'hash', 'history'

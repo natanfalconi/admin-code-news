@@ -51,14 +51,9 @@ const linksList = [
     routeName: 'me'
   },
   {
-    title: 'Categoria',
+    title: 'Autor',
     icon: 'mdi-shape-outline',
-    routeName: 'category'
-  },
-  {
-    title: 'Produtos',
-    icon: 'mdi-format-list-checkbox',
-    routeName: 'products'
+    routeName: 'author'
   },
   {
     title: 'Postagens',
