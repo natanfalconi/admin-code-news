@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          Quasar estoque
+          Code News Admin
         </q-toolbar-title>
 
       </q-toolbar>
@@ -22,9 +22,9 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'LoginLayout',
 
-  setup () {
+  setup() {
     return {
-      
+
     }
   }
 })
